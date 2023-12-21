@@ -63,4 +63,5 @@ function processOnlyPrice($html): string|bool
 }
 
 $html = file_get_contents('./bike.html');
-//print_r(processPage($html));
+?>
+<a href="index.php">back to url adding</a>

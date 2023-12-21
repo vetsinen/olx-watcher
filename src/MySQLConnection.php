@@ -35,11 +35,7 @@ class MySQLConnection
 
     public function execute($sql)
     {
-        if ($this->connection->query($sql) === TRUE) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->connection->query($sql);
     }
 
     public function close()

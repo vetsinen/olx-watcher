@@ -5,6 +5,11 @@ interface UrlWatcher
     public function addUrlToWatchList(Url $url);
     public function addUserAsWatcher(Url $url, User $user);
 }
+
+interface CanBeEmailed
+{
+    public function getUserByEmail(string $email);
+}
 class MySQLUrlWatcher implements UrlWatcher
 {
     private $connection;
@@ -49,42 +54,37 @@ class Url
     }
 
 }
-class User
+class User implements CanBeEmailed
 {
+    private $connection;
     public $id;
-    public function __construct($id)
+    public $email;
+    public function __construct($connection)
     {
-        $this->id = $id;
+        $this->connection = $connection;
     }
 
-    public function userById(int $id)
+    public function getUserByEmail(string $email)
     {
-        return $this;
-    }
-}
-class ItemWatcher
-{
-    private $id;
-    private $url;
-    private $watchers;
-    public function __construct(int $id,string $url,Array $watchers)
-    {
+        $query = "SELECT id FROM users WHERE email='$email' LIMIT 1";
+        $rez = $this->connection->fetch($query);
+        if ($rez)
+        {
+            print_r($rez); echo '<br>';
+            $this->id = $rez[0]['id'];
+            $this->email = $email;
+        }
+        else
+        {
+            $query = "INSERT INTO `users`(`email`) VALUES ('$email')";
+            $rez = $this->connection->execute($query);
 
-    }
-
-    public function addWatcher($id, $watcher)
-    {
-
-    }
-}
-class WatchRegistry
-{
-    function __construct()
-    {
-
-    }
-    public function addUrlToWatch($id, $url)
-    {
-
+            $query = "SELECT id FROM users WHERE email='$email' LIMIT 1";
+            $rez = $this->connection->fetch($query);
+            echo ' new user added <br>';
+            $this->id = $rez[0]['id'];
+            $this->email = $email;
+        }
     }
 }
+

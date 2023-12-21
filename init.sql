@@ -26,6 +26,7 @@ CREATE TABLE `users`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+
 DROP TABLE IF EXISTS `watchers`;
 CREATE TABLE `watchers`
 (
@@ -34,3 +35,5 @@ CREATE TABLE `watchers`
     `userid` int NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE UNIQUE INDEX watcher ON watchers (urlid, userid);
