@@ -1,9 +1,9 @@
 {
-    "name": "webdev/filmforge",
+    "name": "webdev/watcher",
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Webdev\\FilmForge\\": "src/"
+            "Webdev\\watcher\\": "src/"
         }
     },
     "authors": [
@@ -13,6 +13,6 @@
         }
     ],
     "require": {
-        "ext-mysqli": "*"
+        "ext-dom": "*"
     }
 }
