@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * @param string $html
  * @return array|bool
@@ -13,6 +12,7 @@ function processPage(string $html):array|bool
     @$dom->loadHTML($html);
     @$xpath = new DOMXPath($dom);
 
+    // getting id
     $selector = "/html/body/div/div[2]/div[2]/div[3]/div[1]/div[2]/div[5]/div/span[1]";
     $elements = $xpath->query($selector);
     if ($elements && $elements->length > 0) {
@@ -24,12 +24,21 @@ function processPage(string $html):array|bool
         return false;
     }
 
+    // getting title
+    $selector = "/html/body/div/div[2]/div[2]/div[3]/div[2]/div[1]/div[2]/h4";
+    $elements = $xpath->query($selector);
+    if ($elements && $elements->length > 0) {
+        $content = $elements->item(0)->textContent;
+        $title = $content;
+    }
+
     $selector = "/html/body/div[1]/div[2]/div[2]/div[3]/div[2]/div[1]/div[3]/div/div/h3";
     $elements = $xpath->query($selector);
     if ($elements && $elements->length > 0) {
         $content = $elements->item(0)->textContent;
         return [
             "id"=> $id,
+            "title"=> $title,
             "price" => trim($content),
             ];
     } else {

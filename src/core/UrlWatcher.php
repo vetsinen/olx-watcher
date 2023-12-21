@@ -15,13 +15,15 @@ class MySQLUrlWatcher implements UrlWatcher
 
     public function addUrlToWatchList(Url $url)
     {
-        $query = "INSERT INTO `urls`(`id`, `url` , `price` ) VALUES ($url->id, '$url->url', '$url->price')";
-        echo $query;
-        $this->connection->execute($query);
+        $query = "INSERT INTO `urls`(`id`, `url` , `price`, `title` ) VALUES ($url->id, '$url->url', '$url->price', '$url->title')";
+        try{ $this->connection->execute($query);} catch (Exception $e) {}
+
     }
     public function addUserAsWatcher(Url $url, User $user)
     {
-        $query = "INSERT INTO `watchers`(`urlid`,`userid`) VALUES ($url->id, $user-id)";
+        $query = "INSERT INTO `watchers`(`urlid`,`userid`) VALUES ($url->id, $user->id)";
+        echo $query;
+        $this->connection->execute($query);
     }
 }
 
@@ -30,30 +32,32 @@ class Url
     public int $id;
     public string $url;
     public string $price;
+    public string $title;
 
     /**
      * @param int $id
      * @param string $url
      * @param string $price
+     * @param string $title
      */
-    public function __construct(int $id, string $url, string $price)
+    public function __construct(int $id, string $url, string $price, string $title)
     {
         $this->id = $id;
         $this->url = $url;
         $this->price = $price;
+        $this->title = $title;
     }
 
 }
 class User
 {
-    public int $userid;
-    private User $user;
+    public $id;
+    public function __construct($id)
+    {
+        $this->id = $id;
+    }
 
     public function userById(int $id)
-    {
-        return $this;
-    }
-    public function __invoke(int $id)
     {
         return $this;
     }
