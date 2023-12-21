@@ -6,6 +6,7 @@ require_once ('./core/UrlWatcher.php');
 require_once ('./core/Price.php');
 require_once ('parser.php');
 require_once ('./MySQLConnection.php');
+require_once ('dependency-container.php');
 
 if (isset($_SESSION['userid'])) {
     $_SESSION['userid'] = 1;
@@ -13,7 +14,7 @@ if (isset($_SESSION['userid'])) {
 
     $user = new User($_SESSION['userid']);
     echo 'hello,' . $_SESSION['userid'] . ' you want ' . $_POST['url'] . '<br>';
-    $urlWatcher = new MySQLUrlWatcher(new MySQLConnection());
+    $urlWatcher = getDependency(UrlWatcher::class);
 
     try {
         $rez = processPage(file_get_contents('./bike.html'));
