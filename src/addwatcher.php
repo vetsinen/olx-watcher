@@ -1,7 +1,8 @@
 <?php
 session_start();
 unset($_SESSION['msg']);
-require_once('./core/UrlWatcher.php');
+require_once('./core/contracts.php');
+
 require_once('parser.php');
 require_once('dependency-container.php');
 

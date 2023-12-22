@@ -1,16 +1,5 @@
 <?php
 
-interface UrlWatcher
-{
-    public function addUrlToWatchList(Url $url);
-    public function addUserAsWatcher(Url $url, User $user);
-    public function getEmailCandidatesList();
-}
-
-interface CanBeEmailed
-{
-    public function getUserByEmail(string $email);
-}
 class MySQLUrlWatcher implements UrlWatcher
 {
     private $connection;
@@ -28,7 +17,6 @@ class MySQLUrlWatcher implements UrlWatcher
     public function addUserAsWatcher(Url $url, User $user)
     {
         $query = "INSERT INTO `watchers`(`urlid`,`userid`) VALUES ($url->id, $user->id)";
-        echo $query;
         $this->connection->execute($query);
     }
 
@@ -38,30 +26,16 @@ class MySQLUrlWatcher implements UrlWatcher
         return $this->connection->fetch($query);
     }
 
-}
-
-class Url
-{
-    public int $id;
-    public string $url;
-    public string $price;
-    public string $title;
-
-    /**
-     * @param int $id
-     * @param string $url
-     * @param string $price
-     * @param string $title
-     */
-    public function __construct(int $id, string $url, string $price, string $title)
+    public function updatePrice($id, $price)
     {
-        $this->id = $id;
-        $this->url = $url;
-        $this->price = $price;
-        $this->title = $title;
+        $query = "UPDATE `urls` SET price='$price' WHERE id=$id";
+        echo $query;
+        $this->connection->execute($query);
     }
 
 }
+
+
 class User implements CanBeEmailed
 {
     private $connection;
@@ -96,3 +70,10 @@ class User implements CanBeEmailed
     }
 }
 
+class SystemEmailer
+{
+    public function notify($email, $message)
+    {
+        @mail($email, 'price was changed', $message);
+    }
+}

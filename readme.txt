@@ -6,6 +6,9 @@ for first time you need to run from application directory:
 for regular launch you need to start from application directory:
     docker-compose up
 
+for correct email service work you need to setup in correct way system utility
+/usr/sbin/sendmail
+
 after containers runned application is availeble on aaddress http://localhost:8080
 
 if you edit settings in .env file, you also need to change constants in src/config.php

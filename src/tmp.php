@@ -1,4 +1,3 @@
 <?php
-require_once ('core/UrlWatcher.php');
-require_once ('dependency-container.php');
-print_r(getDependency(UrlWatcher::class));
+@mail('me@yopmail.com', 'no subject', 'hello');
+@mail('me2@yopmail.com', 'no subject', 'hello');
