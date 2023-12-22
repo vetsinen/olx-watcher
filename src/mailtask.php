@@ -6,7 +6,8 @@ require_once ('./dependency-container.php');
 require_once ('./core/Price.php');
 
 $urlWatcher = getDependency(UrlWatcher::class);
-$emailer = new MockEmailer();
+//$emailer = getDependency(Emailer::class);
+$emailer = new SystemEmailer();
 
 $list = $urlWatcher->getEmailCandidatesList();
 $lastUrl = '';
@@ -18,13 +19,16 @@ foreach ($list as $item)
     if ($item['url']!==$lastUrl)
     {
         echo 'checking price <br>';
-        $lastPrice = new Price($item['price']);
         $lastUrl = $item['url'];
-        $rez = processPage ($lastUrl);
-        $actualPrice = new Price($rez['price']);
-        if (!$lastPrice.isEqual($actualPrice)) {
+        $actualPrice = processOnlyPrice(file_get_contents($lastUrl));
+        echo " $item[price] --- $actualPrice for $lastUrl <br>";
+
+        $lastPriceObj = new Price($item['price']);
+        $actualPriceObj = new Price($actualPrice);
+
+        if (!$lastPriceObj->isEqual($actualPriceObj)) {
                 $emailSending = true;
-                $message = "hello, new price for $item[title] is rez[price], you can see it on $item[url]";
+                $message = "hello, new price for $item[title] is $actualPrice, you can see it on $item[url]";
                 $emailer->notify($item['email'], $message);
                 //TODO: update url price in table
             }

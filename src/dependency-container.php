@@ -1,6 +1,7 @@
 <?php
 require_once ('core/UrlWatcher.php');
 require_once ('MySQLConnection.php');
+require_once ('Emailer.php');
 
 function getDependency($s)
 {

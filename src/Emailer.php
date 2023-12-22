@@ -1,6 +1,6 @@
 <?php
 
-class MockEmailer
+class SystemEmailer
 {
     public function notify($email, $message)
     {

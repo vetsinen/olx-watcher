@@ -34,7 +34,7 @@ class MySQLUrlWatcher implements UrlWatcher
 
     public function getEmailCandidatesList()
     {
-        $query = 'SELECT url, price, title, email FROM urls JOIN watchers ON urls.id = watchers.urlid JOIN users ON watchers.userid = users.id ORDER BY url';
+        $query = 'SELECT urls.id, email, price, url,  title FROM urls JOIN watchers ON urls.id = watchers.urlid JOIN users ON watchers.userid = users.id ORDER BY url';
         return $this->connection->fetch($query);
     }
 

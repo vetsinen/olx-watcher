@@ -32,6 +32,7 @@ function processPage(string $html):array|bool
         $title = $content;
     }
 
+    //gettig price
     $selector = "/html/body/div[1]/div[2]/div[2]/div[3]/div[2]/div[1]/div[3]/div/div/h3";
     $elements = $xpath->query($selector);
     if ($elements && $elements->length > 0) {
@@ -48,6 +49,7 @@ function processPage(string $html):array|bool
 
 function processOnlyPrice($html): string|bool
 {
+
     $dom = new DOMDocument;
     @$dom->loadHTML($html);
     @$xpath = new DOMXPath($dom);
@@ -62,6 +64,5 @@ function processOnlyPrice($html): string|bool
     }
 }
 
-$html = file_get_contents('./bike.html');
+//echo processOnlyPrice(file_get_contents('https://www.olx.ua/d/uk/obyavlenie/mototsikl-tekken-250-IDMCsTV.html'))
 ?>
-<a href="index.php">back to url adding</a>

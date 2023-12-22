@@ -2,9 +2,9 @@
 
 class Price
 {
-    private string $rawPrice;
-    private string $currency;
-    private string $amount;
+    public string $rawPrice;
+    public string $currency;
+    public string $amount;
 
     function __construct(string $rawPrice)
     {
@@ -16,16 +16,16 @@ class Price
         $this->amount = implode("", $array);
     }
 
+    function isEqual(Price $b): bool
+    {
+        if ($this->rawPrice === $b->rawPrice) return true;
+        if ($this->currency!==$b->currency) return false;
+        if ($this->amount===$b->amount AND $this->currency===$b->currency) return true;
+        return false;
+    }
+
     function __invoke()
     {
         return $this->rawPrice;
     }
-
-    function isEqual(Price $b): bool
-    {
-        if ($this->rawPrice === $b()) return true;
-        return false;
-    }
 }
-
-//new Price('120 000 $');
