@@ -29,7 +29,6 @@ class MySQLUrlWatcher implements UrlWatcher
     public function updatePrice($id, $price)
     {
         $query = "UPDATE `urls` SET price='$price' WHERE id=$id";
-        echo $query;
         $this->connection->execute($query);
     }
 
@@ -52,7 +51,6 @@ class User implements CanBeEmailed
         $rez = $this->connection->fetch($query);
         if ($rez)
         {
-            print_r($rez); echo '<br>';
             $this->id = $rez[0]['id'];
             $this->email = $email;
         }
@@ -63,7 +61,6 @@ class User implements CanBeEmailed
 
             $query = "SELECT id FROM users WHERE email='$email' LIMIT 1";
             $rez = $this->connection->fetch($query);
-            echo ' new user added <br>';
             $this->id = $rez[0]['id'];
             $this->email = $email;
         }

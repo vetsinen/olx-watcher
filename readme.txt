@@ -6,10 +6,18 @@ for first time you need to run from application directory:
 for regular launch you need to start from application directory:
     docker-compose up
 
-for correct email service work you need to setup in correct way system utility
+after containers runned application is availeble on address http://localhost:8080
+
+To run command for price updates checkup you need to run from project root folder in console:
+  docker exec -it your_php_container_name php mailtask.php
+where your_php_container_name is name of php application container in your system
+
+To run
+
+for email service work you need to setup in correct way system utility
 /usr/sbin/sendmail
 
-after containers runned application is availeble on aaddress http://localhost:8080
+
 
 if you edit settings in .env file, you also need to change constants in src/config.php
 

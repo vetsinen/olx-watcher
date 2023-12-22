@@ -14,18 +14,15 @@ if (!$url) $msg .= ' please, provide correct url. ';
 
 if ($email AND $url) {
     $_SESSION['email'] = $email;
-    echo 'hello,' . $email . ' you want ' . $url . '<br>';
     $urlWatcher = getDependency(UrlWatcher::class);
     $user = getDependency(CanBeEmailed::class);
     $user->getUserByEmail($email);
 
     try {
-        //$url = './bike.html';
         $rez = processPage(file_get_contents($url));
 
         if ($rez) {
             $rez['url'] = $url;
-            print_r($rez); echo '<br>';
             $url = new Url($rez['id'], $rez['url'], $rez['price'], $rez['title']);
 
             $urlWatcher->addUrlToWatchList($url);
@@ -42,7 +39,7 @@ if ($email AND $url) {
 }
 $_SESSION['msg'] = $msg;
 
-
+header("Location: index.php");
 function sanitizeEmail($email)
 {
     // Remove unwanted characters

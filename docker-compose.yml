@@ -13,11 +13,6 @@ services:
 
   mysql:
     image: mysql:8.1
-#    environment:
-#      - MYSQL_ROOT_PASSWORD
-#      - MYSQL_DATABASE
-#      - MYSQL_USER
-#      - MYSQL_PASSWORD
     env_file:
       - .env
     volumes:
