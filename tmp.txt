@@ -1,1 +1,3 @@
+SELECT url, price, title, email FROM urls JOIN watchers ON urls.id = watchers.urlid JOIN users ON watchers.userid = users.id ORDER BY url
+
  "ext-mysqli": "*"

@@ -4,6 +4,7 @@ interface UrlWatcher
 {
     public function addUrlToWatchList(Url $url);
     public function addUserAsWatcher(Url $url, User $user);
+    public function getEmailCandidatesList();
 }
 
 interface CanBeEmailed
@@ -30,6 +31,13 @@ class MySQLUrlWatcher implements UrlWatcher
         echo $query;
         $this->connection->execute($query);
     }
+
+    public function getEmailCandidatesList()
+    {
+        $query = 'SELECT url, price, title, email FROM urls JOIN watchers ON urls.id = watchers.urlid JOIN users ON watchers.userid = users.id ORDER BY url';
+        return $this->connection->fetch($query);
+    }
+
 }
 
 class Url
