@@ -1,7 +1,0 @@
-### POST request with parameter
-GET http://localhost:8080/addwatcher.php
-Accept: application/json
-{
-    "id": 999,
-    "value": "content"
-}
