@@ -29,8 +29,8 @@ session_start();
                     <label class="label">add email for notifications:</label>
                     <div class="control">
                         <input class="input" type="email"
-                               value="<?=$_SESSION['email']?>" name="email"
-                               placeholder="<?=$_SESSION['email']?>">
+                               value="" name="email"
+                               placeholder="login@server.com">
                     </div>
                 </div>
 
