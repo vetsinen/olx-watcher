@@ -8,7 +8,7 @@ class MySQLConnection
 
     public function __construct()
     {
-        $this->connection = new \mysqli(MYSQL_ROOT_HOST, MYSQL_USER, MYSQL_USER, MYSQL_DATABASE);
+        $this->connection = new \mysqli(MYSQL_ROOT_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE);
         if ($this->connection->connect_error) {
             die("Connection failed: " . $this->connection->connect_error);
         }
